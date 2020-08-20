@@ -1,5 +1,9 @@
 # Dotfiles repo
 
+README is not up to date with the contents of the repo!
+explore it yourself to see what I use ;) 
+update comming soon!
+
 ### Here you can find my configuration files for:
 - bash
 - vim
@@ -36,14 +40,8 @@
 - Network Manager
 -	ImageMagic
 
-### Other handy tools i use:
-- xev (getting keycodes)
-- figlet (fancy ascii art text)
-- test
-- xclip
-- gucharmap
-
 ### Fonts:
-- Material Icons (icon)
-- Symbola (emoji)
+- Material Icons (icons)
+- JoyPixels (emoji)
+- Noto Color Emoji (emoji)
 - Hack (monospace)
