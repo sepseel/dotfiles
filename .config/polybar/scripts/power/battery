@@ -1,0 +1,73 @@
+#!/bin/bash
+
+toggleFile="$HOME/.config/polybar/scripts/power/show-percent"
+
+info=$( acpi | egrep -oi '[a-z]+, [0-9]+%' | tr -d ',%' )
+state=$( echo $info | egrep -oi '[a-z]+' )
+percentage=$( echo $(echo $info | egrep -oi '[0-9]+') | cut -d' ' -f 1)
+re='^[0-9]+$'
+
+
+
+# sets the current icon based on the battery state
+function setIcon {
+        if [[ $percentage =~ $re ]] ; then
+	batteryLowThreshold=15
+	batteryFullThreshold=95
+	if [ "$state" == "Discharging" ]; then
+		if (( $percentage < $batteryLowThreshold )); then
+		# battery is low
+			polybar-msg hook bat_i 1 > /dev/null
+			polybar-msg hook bat_low_i 2 > /dev/null
+		else
+		# battery is discharging
+			polybar-msg hook bat_full_i 1 > /dev/null
+			polybar-msg hook bat_i 2 > /dev/null
+		fi
+	else
+		if (( $percentage > $batteryFullThreshold )); then
+		# battery is full
+			polybar-msg hook bat_i 1 > /dev/null
+			polybar-msg hook bat_full_i 2 > /dev/null
+		else	
+		# battery is charging
+			polybar-msg hook bat_low_i 1 > /dev/null
+			polybar-msg hook bat_i 3 > /dev/null
+		fi
+	fi
+        fi
+}
+
+function getPercent {
+	showPercentage=$(cat $toggleFile)
+	if [ "$showPercentage" == "y" ]; then
+		if (( $percentage > $batteryFullThreshold )); then
+			echo "FULL"
+		else
+			echo "$percentage%"
+		fi
+	else
+		echo "" 
+	fi
+}
+
+# toggles wether to print the percentage
+function toggle {
+	showPercentage=$(cat $toggleFile)
+	if [ "$showPercentage" == "n" ]; then
+		echo "y" > "$toggleFile"
+	else
+		echo "n" > $toggleFile
+	fi
+}
+
+# parse the flags
+case $1 in 
+	"-t") 
+		toggle
+		;;
+	*)
+		setIcon
+		getPercent
+		;;
+esac

@@ -1,0 +1,28 @@
+#!/usr/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+options_file=$XDG_DATA_HOME/dmenu/saved_networks
+
+# refresh the networks
+nmcli -f name,timestamp connection show | sort -k2,2 -n -r | cut -d" " -f 1 | grep -v NAME > $options_file 
+
+# count the lines and limit them to 30
+lines=$(cat $options_file | wc -l)
+if [ "$lines" -gt 20 ]; then lines=30; fi
+
+prompt="Connect to a network"
+
+# let the user pick a network
+network=$(cat "$options_file" | $DMENU $@ -l "$lines" -p "$prompt:")
+
+# connect to the network and refresh polybar
+nmcli connection up $network \
+&& notify-send -u normal "Connection made" "You are now connected to: $network" \
+&& ~/.config/polybar/scripts/network/wifi -c 
+
+exit 0

@@ -1,0 +1,28 @@
+#!/bin/sh
+
+toggleFile="$HOME/.config/polybar/scripts/datetime/show-date"
+
+# toggles wether to print the percentage
+function toggle {
+	showDate=$(cat $toggleFile)
+	if [ "$showDate" == "n" ]; then
+		echo "y" > "$toggleFile"
+	else
+		echo "n" > $toggleFile
+	fi
+}
+
+function getDate {
+  showDate=$(cat $toggleFile)
+	if [ "$showDate" == "n" ]; then
+		echo ""
+  else
+    date +"%a %d|%m"
+	fi
+}
+
+# parse the flags
+case $1 in 
+	"-t") toggle ;;
+	*) getDate ;;
+esac

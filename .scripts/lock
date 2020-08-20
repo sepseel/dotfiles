@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+# script for locking the screen
+# takes screenshot and pixelates it
+# then waits for the password+ENTER to unlock
+icon="$XDG_PICTURES_DIR/icon.png"
+tmpbg='/tmp/screen.png'
+
+#(( $# )) && { icon=$1; }
+
+scrot "$tmpbg"
+convert "$tmpbg" -scale 10% -scale 1000% "$tmpbg"
+#convert "$tmpbg" "$icon" -gravity center -composite -matte "$tmpbg"
+i3lock -u -i "$tmpbg"
+amixer -q sset Master mute
+rm /tmp/screen*	

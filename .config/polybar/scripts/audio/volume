@@ -1,0 +1,37 @@
+#!/bin/sh
+
+# store paths in vars to make changing them easy
+toggleFile="$HOME/.config/polybar/scripts/audio/show-volume"
+
+# toggles wether to print the current volume or ""
+function toggle {
+	showVolume=$(cat $toggleFile)
+	if [ "$showVolume" == "n" ]; then
+		echo "y" > $toggleFile
+		polybar-msg hook volume 1 > /dev/null
+	else
+		echo "n" > $toggleFile
+		polybar-msg hook volume 2 > /dev/null
+	fi
+}
+
+
+# prints the current volume or nothing
+function getVolume {
+	showVolume=$(cat $toggleFile)
+	if [ "$showVolume" == "n" ]; then
+		echo ""
+	else
+		amixer sget Master | egrep -o "[0-9]+%"
+	fi
+}
+
+# parse the flags
+case $1 in 
+	"-t")
+		toggle
+		;;
+	*)
+		getVolume
+		;;
+esac

@@ -1,0 +1,8 @@
+#!/bin/bash
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+man -k . | $DMENU -l 15 | awk '{print $1}' | xargs man

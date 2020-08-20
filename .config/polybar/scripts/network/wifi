@@ -1,0 +1,67 @@
+#!/bin/sh
+
+# save all the paths in variables to make changing them easy
+scriptDir="$HOME/.config/polybar/scripts/network"
+ssidFile="$scriptDir/curr-ssid"
+toggleFile="$scriptDir/show-ssid"
+
+# runs the ipc hooks in polybar to set the correct icon
+function updateIcons {
+	if ping -q -c 1 -W 1 8.8.8.8 > /dev/null; then
+		polybar-msg hook wifi_d_i 1 > /dev/null # resets the icon
+		polybar-msg hook wifi_c_i 2 > /dev/null # sets the icon
+	else
+		polybar-msg hook wifi_c_i 1 > /dev/null # resets the icon
+		polybar-msg hook wifi_d_i 2 > /dev/null # sets the icon
+	fi
+}
+
+# update our current ssid
+function updateSSID {
+	echo "..." > $ssidFile
+	if ping -q -c 1 -W 1 8.8.8.8 >/dev/null; then
+			SSID="$(nmcli -f in-use,ssid dev wifi | grep '*' | tr -s ' ' | cut -d' ' -f 2 )"
+			echo $SSID > $ssidFile
+	fi
+}
+
+# prints the current ssid or ""
+function getSSID {
+	showSSID=$(cat $toggleFile)
+	if [ "$showSSID" == "y" ]; then
+		echo $(cat $ssidFile)
+	else
+		echo "" 
+	fi
+
+}
+
+# toggles wether to print the current ssid or ""
+function toggle {
+	showSSID=$(cat $toggleFile)
+	if [ "$showSSID" == "n" ]; then
+		echo "y" > "$toggleFile"
+	else
+		echo "n" > $toggleFile
+	fi
+}
+
+# parse the flags
+case $1 in 
+	"-t") 
+		toggle
+		updateSSID
+		;;
+	"-u")
+		updateSSID
+		;;
+	"-c") # connection made
+		echo "y" > "$toggleFile"
+		updateSSID
+		updateIcons
+		;;
+	*)
+		getSSID
+		updateIcons
+		;;
+esac

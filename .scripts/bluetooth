@@ -1,0 +1,104 @@
+#!/bin/bash
+#  _     _            _              _   _     
+# | |__ | |_   _  ___| |_ ___   ___ | |_| |__  
+# | '_ \| | | | |/ _ \ __/ _ \ / _ \| __| '_ \ 
+# | |_) | | |_| |  __/ || (_) | (_) | |_| | | |
+# |_.__/|_|\__,_|\___|\__\___/ \___/ \__|_| |_|
+#                                              
+# custom script to connect and disconnect bluetooth
+# devices stored in a textfile $HOME/bin/btDevices
+# name<space>mac
+
+
+# get all the known devices into arrays
+getDev() {
+	devices=()
+	adresses=()
+	local i=0	
+	clear
+	echo "0) exit"
+	while read name addres; do
+		let i+=1
+		devices[$i]=$name
+		adresses[$i]=$addres
+	done < $HOME/bin/btDevices
+	return
+}
+
+# connect a device based on its position in the array
+connect() {
+	echo "connecting to ${devices[$1]}"
+	addres=${adresses[$1]}
+	echo -e "power on\nconnect $addres\nexit" | bluetoothctl
+	return
+}
+
+# disconnect a device based on its position in the array
+disconnect() {
+	echo "disconnecting ${devices[$1]}"
+	addres=${adresses[$1]}
+	echo -e "power on\ndisconnect $addres\nexit" | bluetoothctl
+	return
+}
+
+# actually get the devices into the arrays
+getDev
+
+# connect or disconnect ?
+clear
+cat << EOF
+0) exit
+1) Connect
+2) Disconnect
+3) Send file
+EOF
+read -p "What would you like to do? > " choice
+
+clear
+echo "0) exit"
+
+
+case $choice in
+0)	# exit the program
+	echo "quitting..."
+	;;
+
+1)	# connect to a device
+	for i in ${!devices[@]}; do
+		echo "${i}) ${devices[$i]}"
+	done
+	read -p "What device to connect ? > " dev
+	if [ $dev -eq 0 ] || [ $dev -gt ${#devices[@]} ] 
+	then
+		echo "quitting..."
+	else
+		connect $dev
+	fi
+	;;
+
+2)	# disconnect a device
+	for i in ${!devices[@]}; do
+		echo "${i}) ${devices[$i]}"
+	done
+	read -p "what device to disconnect ? > " dev
+	if [ $dev -eq 0 ] || [ $dev -gt ${#devices[@]} ] 
+	then
+		echo "quitting..."
+	else
+		disconnect $dev	
+	fi
+	;;
+
+3) # send a file
+	read -p "path to file" filePath
+	echo "work in progress..."
+	echo "quitting..." 
+	;;
+
+*) # exit
+	echo "invalid choice"
+	;;
+
+esac
+
+

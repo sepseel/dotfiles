@@ -1,0 +1,240 @@
+#  _ _____                    __ _       
+# (_)___ /    ___ ___  _ __  / _(_) __ _ 
+# | | |_ \   / __/ _ \| '_ \| |_| |/ _` |
+# | |___) | | (_| (_) | | | |  _| | (_| |
+# |_|____/   \___\___/|_| |_|_| |_|\__, |
+#                                  |___/ 
+
+for_window [class="mijnlieff.Mijnlieff" instance="mijnlieff.Mijnlieff"] floating enable
+for_window [class="contacts.contact.Main" instance="contacts.contact.Main"] floating enable
+for_window [class="start.Start" instance="start.Start"] floating enable
+for_window [class="Nm-connection-editor"] floating enable
+for_window [class="Thunderbird"] floating enable
+for_window [class="Thunderbird" instance="Mail"] floating disable
+for_window [class="[.]*"] border none
+
+
+###---Basic Defenitions---###
+
+# gaps setup
+gaps inner 10
+gaps outer 0
+
+# hide all borders
+hide_edge_borders both
+new_window 1pixel
+default_border none
+
+# other defenitions
+set $mod Mod1
+set $term xterm
+exec "setxkbmap -layout be" # keyboard layout
+exec "xset -b off"	 		# disable the bell
+exec "touchpadtoggle" 		# turn the touchpad off
+
+# wallpaper 
+exec_always feh --no-fehbg --bg-fill $XDG_PICTURES_DIR/wallpapers/wallpaper.jpg
+
+
+
+###---ALSA---###
+set $inc 	--no-startup-id amixer set Master 2%+
+set $biginc --no-startup-id amixer set Master 5%+
+set $dec 	--no-startup-id amixer set Master 2%-
+set $bigdec --no-startup-id amixer set Master 5%-
+set $mute 	--no-startup-id amixer -D pulse set Master 1+ toggle
+
+set $reminc --no-startup-id incremovol
+set $remdec --no-startup-id decremovol
+
+
+###---Scratchpad---###
+bindsym $mod+Shift+minus exec --no-startup-id urxvt -name dropdown
+for_window [instance="dropdown"] floating enable
+for_window [instance="dropdown"] move scratchpad
+for_window [instance="dropdown"] resize set 900 400
+bindsym $mod+minus scratchpad show
+
+# Make the current window a scratchpad
+bindsym $mod+dollar move scratchpad
+
+
+###---keybindings---###
+# Use Mouse+$mod to drag floating windows to their wanted position
+floating_modifier $mod
+
+bindsym $mod+Shift+m 			exec load_music_layout.sh
+#bindsym $mod+m 			exec mansearch
+
+
+# Volume keys
+bindsym XF86AudioRaiseVolume              exec $inc
+bindsym $mod+XF86AudioRaiseVolume         exec $inc
+bindsym XF86AudioLowerVolume              exec $dec
+bindsym $mod+XF86AudioLowerVolume         exec decremovol
+bindsym XF86AudioMute                     exec $mute
+
+
+# brightness
+bindsym XF86MonBrightnessUp               exec bash $HOME/bin/brightness +
+bindsym XF86MonBrightnessDown             exec bash $HOME/bin/brightness -
+
+# take a screenshot
+bindsym XF86Display 			                exec "spectacle" 
+
+# lock the screen
+bindsym $mod+x		      	            	  exec "lock"
+
+# touchpad
+bindsym $mod+w                            exec "touchpadtoggle"
+
+# firefox
+bindsym $mod+Shift+f 					  					exec --no-startup-id "firefox"
+
+# open an emoji menu
+bindsym $mod+a							  					  exec $HOME/bin/dmenu/emoji
+
+# open a menu
+bindsym $mod+c                            exec "$HOME/.scripts/dmenu/menu"
+
+# start a terminal
+bindsym $mod+Shift+Return 			 				  exec xterm -fa 'Hack' -fs 14 
+bindsym $mod+Return            			      exec xterm -fa 'Hack' -fs 14 
+
+# kill focused window
+bindsym $mod+Shift+a 										  kill
+
+# start dmenu (a program launcher)
+bindsym $mod+d 							 						  exec dmenu_run
+
+# change focus
+bindsym $mod+h													  focus left
+bindsym $mod+j													  focus down
+bindsym $mod+k													  focus up
+bindsym $mod+l													  focus right
+bindsym $mod+Left												  focus left
+bindsym $mod+Down												  focus down
+bindsym $mod+Up													  focus up
+bindsym $mod+Right												focus right
+
+# move focused window
+bindsym $mod+Shift+h										  move left 20
+bindsym $mod+Shift+j										  move down 20 
+bindsym $mod+Shift+k										  move up 20 
+bindsym $mod+Shift+l										  move right 20 
+bindsym $mod+Shift+Left									  move left 20
+bindsym $mod+Shift+Down									  move down 20 
+bindsym $mod+Shift+Up										  move up 20 
+bindsym $mod+Shift+Right								  move right 20 
+
+# split in horizontal orientation
+bindsym $mod+v													  split h; exec notify-send 'tile horizontally'
+bindsym $mod+b													  split v; exec notify-send 'tile vertically'
+
+
+# enter fullscreen mode for the focused container
+bindsym $mod+f													  fullscreen toggle
+
+# change container layout (stacked, tabbed, toggle split)
+bindsym $mod+s													  layout stacking
+bindsym $mod+z													  layout tabbed
+bindsym $mod+e													  layout toggle split
+
+# toggle tiling / floating
+bindsym $mod+Shift+space								  floating toggle
+
+# change focus between tiling / floating windows
+bindsym $mod+space											  focus mode_toggle
+
+# focus the parent container
+bindsym $mod+q													  focus parent
+
+# switch to workspace
+bindsym $mod+ampersand									   workspace 1
+bindsym $mod+eacute											   workspace 2
+bindsym $mod+quotedbl										   workspace 3
+bindsym $mod+apostrophe									   workspace 4
+bindsym $mod+parenleft									   workspace 5
+bindsym $mod+section										   workspace 6
+bindsym $mod+egrave 										   workspace 7
+bindsym $mod+exclam											   workspace 8
+bindsym $mod+ccedilla										   workspace 9
+bindsym $mod+agrave											   workspace 10
+
+# move focused container to workspace
+bindsym $mod+Shift+ampersand							 move container to workspace 1
+bindsym $mod+Shift+eacute									 move container to workspace 2
+bindsym $mod+Shift+quotedbl 							 move container to workspace 3
+bindsym $mod+Shift+apostrophe 						 move container to workspace 4
+bindsym $mod+Shift+5											 move container to workspace 5
+bindsym $mod+Shift+section								 move container to workspace 6
+bindsym $mod+Shift+egrave									 move container to workspace 7
+bindsym $mod+Shift+exclam									 move container to workspace 8
+bindsym $mod+Shift+ccedilla								 move container to workspace 9
+bindsym $mod+Shift+agrave									 move container to workspace 10
+
+# reload the configuration file
+bindsym $mod+Shift+r											 reload
+# restart i3 inplace (preserves your layout/session, can be used to upgrade i3)
+bindsym $mod+Shift+c											 restart
+# exit i3 (logs you out of your X session)
+bindsym $mod+Shift+e											 exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -b 'Yes, exit i3' 'i3-msg exit'"
+
+# resize window (you can also use the mouse for that)
+mode "resize" {
+
+        bindsym l		 											 resize shrink height 10 px or 10 ppt
+        bindsym m		 											 resize grow width 10 px or 10 ppt
+        bindsym Left 											 resize shrink width 10 px or 10 ppt
+        bindsym Down 											 resize grow height 10 px or 10 ppt
+        bindsym Up	 											 resize shrink height 10 px or 10 ppt
+        bindsym Right											 resize grow width 10 px or 10 ppt
+
+        bindsym Return										 mode "default"
+        bindsym Escape										 mode "default"
+}
+
+bindsym $mod+r														 mode "resize"
+
+# resize gaps
+mode "gaps" {
+
+        bindsym Up   											 gaps inner current plus 5
+        bindsym Down 											 gaps inner current minus 5
+        bindsym Rigth											 gaps outer current plus 5
+        bindsym Left 											 gaps outer current minus 5
+
+        bindsym Return										 mode "default"
+        bindsym Escape										 mode "default"
+}
+
+bindsym $mod+g      											 mode "gaps"
+bindsym $mod+Shift+g											 gaps inner current set 0; gaps outer current set 0
+
+
+
+###---Starting aplications ---###
+
+# start redshift
+exec redshift -l 51:03
+
+# give the focussed window a border
+#exec_always "focussed-border"
+
+# start dunst (notification server)
+exec_always --no-startup-id dunst
+
+# Start polybar
+exec_always --no-startup-id $HOME/.config/polybar/launch.sh
+
+#start picom
+exec_always --no-startup-id  picom
+
+# automatically set connected display's output
+exec --no-startup-id xrandr --auto
+exec --no-startup-id xrandr --output eDP-1 --set "Broadcast RGB" "Full"
+
+exec checkBat &
+exec xrdb ~/.Xdefaults
+exec setxkbmap -option caps:escape
+

@@ -1,0 +1,25 @@
+#!/usr/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+notification="No screenshot made"
+
+while [ -f "$XDG_PICTURES_DIR/screenshots/$file_name.png" ] \
+   || [ -z ${file_name+x} ]; do
+  file_name=$(echo "" | $DMENU $@ -l 0 -p "FileName:") 
+done
+
+
+if [ -n "$file_name" ]; then
+  maim -s -u > "$XDG_PICTURES_DIR/screenshots/$file_name.png" 
+  notification="Screenshot saved to: $file_name.png"
+else
+  maim -s -u 2>/dev/null | xclip -selection clipboard -t image/png -i
+  [ ${PIPESTATUS[0]} -eq 0 ] && notification="Screenshot copied to clipboard"
+fi
+
+notify-send -u normal "Sreenshot" "$notification"

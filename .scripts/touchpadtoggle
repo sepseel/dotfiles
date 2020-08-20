@@ -1,0 +1,3 @@
+#!/bin/bash
+# toggles the touchpad on and off
+synclient TouchpadOff=$(synclient -l | grep -c 'TouchpadOff.*=.*0')

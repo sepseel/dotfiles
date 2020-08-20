@@ -1,0 +1,15 @@
+#!/bin/sh
+
+# check for updates and store number of updates in $updates
+if ! updates=$(checkupdates 2> /dev/null | wc -l ); then
+    updates=0
+fi
+
+# if there are updates echo the given icon or the number of updates
+if [ "$updates" -gt 0 ]; then
+    polybar-msg hook updates-arch_i 1 > /dev/null # sets the icon
+    echo "$updates"
+else
+    polybar-msg hook updates-arch_i 2 > /dev/null # disables the icon
+    echo ""
+fi

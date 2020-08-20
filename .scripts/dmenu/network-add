@@ -1,0 +1,31 @@
+#!/usr/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+options_file=$XDG_DATA_HOME/dmenu/available_networks
+
+# refresh the networks
+nmcli -f ssid,bars,security,freq dev wifi | grep -v SSID > $options_file 
+
+lines=$(cat $options_file | wc -l)
+if [ "$lines" -gt 20 ]; then lines=30; fi
+
+# let the user pick a network
+ssid=$(cat "$options_file" | $DMENU $@ -l "$lines" -p "Add a new connection:" | cut -d" " -f 1)
+
+# let the user pick a name for the network
+name=$(echo  | $DMENU $@ -l 0 -p "Give the network a name:")
+
+# let the user pick a password
+password=$(echo  | $DMENU $@ -l 0 -p "Network password:" -P) 
+
+# add a new connection and connect to it
+nmcli dev wifi connect "$ssid" password "$password" name "$name" \
+&& notify-send -u normal "Connection added" "You are now connected to: $name" \
+&& ~/.config/polybar/scripts/network/wifi -c
+
+exit 0

@@ -1,0 +1,25 @@
+reps
+music
+images
+documents
+.cache
+.vscode-oss
+.thunderbird
+.mozilla
+.local/share/Trash
+
+.config/discord
+.config/Code\ -\ OSS
+.config/nvim/plugged
+.config/pulse
+.config/dconf
+.config/mpd/pid
+.config/mpd/sticker.sql
+
+.dotfiles
+.gnupg
+.local/share
+!.local/share/dmenu
+.pki
+.ssh
+.dbus

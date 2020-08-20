@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+
+xsel -o | $DMENU -p Calculate: | xargs echo | bc 2>&1 | $DMENU -p Answer: | xsel -i

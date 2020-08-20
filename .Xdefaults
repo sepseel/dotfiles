@@ -1,0 +1,64 @@
+!
+! __  __   _       __             _ _       
+! \ \/ /__| | ___ / _| __ _ _   _| | |_ ___ 
+!  \  // _` |/ _ \ |_ / _` | | | | | __/ __|
+!  /  \ (_| |  __/  _| (_| | |_| | | |_\__ \
+! /_/\_\__,_|\___|_|  \__,_|\__,_|_|\__|___/
+!
+
+! Molokai theme
+! special
+  *.foreground:   #F8F8F2
+  *.cursorColor:  #F8F8F2
+  *.background:   #272822
+! black
+  *.color0:       #272822
+  *.color8:       #242329
+! red
+  *.color1:       #f92672
+  *.color9:       #f92672
+! green
+  *.color2:       #a6e22e
+  *.color10:      #a6e22e
+! yellow
+  *.color3:       #f4bf75
+  *.color11:      #f4bf75
+! blue
+  *.color4:       #66d9ef
+  *.color12:      #66d9ef
+! magenta
+  *.color5:       #ae81ff
+  *.color13:      #ae81ff
+! cyan
+  *.color6:       #a1efe4
+  *.color14:      #a1efe4
+! white
+  *.color7:       #f8f8f2
+  *.color15:      #f9f8f5
+
+
+! URxvt settings
+URxvt.background: [70]#000000
+!URxvt.foreground:     #F8F8F2
+!URxvt.color0:         #000000
+!URxvt.color1:         #FF5555
+!URxvt.color2:         #50FA7B
+!URxvt.color3:         #F1FA8C
+!URxvt.color4:         #BD93F9
+!URxvt.color5:         #FF79C6
+!URxvt.color6:         #8BE9FD
+!URxvt.color7:         #BFBFBF
+!URxvt.color8:         #4D4D4D
+!URxvt.color9:         #FF6E67
+!URxvt.color10:        #5AFF50
+!URxvt.color11:        #F4F99D
+!URxvt.color12:        #CAA9FA
+!URxvt.color13:        #FF92D0
+!URxvt.color14:        #9AEDFE
+!URxvt.color15:        #E6E6E6
+URxvt.intensityStyles:	true
+URxvt.depth:		32
+URxvt.font: 		xft:monospace:size=14 
+!xft:Hack:size=14, xft:Material Icons:size=14, xft:Symbola:size=14, xft:Font Awesome:size=14, xft:Fira Code:size=14, xft:Unifont:size=14
+URxvt.scrollBar:	false
+!URxvt.cursorColor:	white
