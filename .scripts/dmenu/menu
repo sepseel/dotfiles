@@ -1,23 +1,16 @@
 #!/usr/bin/env bash
 
-echo $PATH > $HOME/path
-
 if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
   . $XDG_CONFIG_HOME/dmenu/.dmenurc
 else
   DMENU='dmenu'
 fi
 
-options_file=$XDG_DATA_HOME/dmenu/menu_options
-
-# count the lines and limit them to 30
-lines=$(cat $options_file | wc -l)
-if [ "$lines" -gt 20 ]; then lines=30; fi
-
+menu_options="network-connect\nnetwork-add\nbluetooth-connect\nbluetooth-add\ntodo\nscreenshot\nemoji\ncalculate"
 prompt="What do you want to do?"
 
 # let the user pick an option
-selection=$(cat "$options_file" | $DMENU $@ -l "$lines" -p "$prompt:")
+selection=$(echo -e $menu_options | $DMENU $@ -l 15 -p "$prompt:")
 
 case "$selection" in
         emoji) emoji & ;;
@@ -27,6 +20,7 @@ case "$selection" in
         network-add) network-add & ;;
         bluetooth-connect) bluetooth-connect & ;;
         bluetooth-add) bluetooth-add & ;;
+        calculate) calculate & ;;
 esac
 
 exit 0

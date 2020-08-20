@@ -6,5 +6,11 @@ else
   DMENU='dmenu'
 fi
 
-
-xsel -o | $DMENU -p Calculate: | xargs echo | bc 2>&1 | $DMENU -p Answer: | xsel -i
+oup=$(xsel -o)
+while inp=$(echo -e "$oup" | $DMENU -l 10 -p Calculate:)
+do
+    if oup2=$(calc -pd "$inp"); then
+        echo -n "$oup2" | xsel -i
+        oup="$oup2\n$oup"
+    fi
+done
