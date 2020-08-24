@@ -74,8 +74,8 @@ bindsym XF86AudioMute                     exec audioctl -m
 
 
 # brightness
-bindsym XF86MonBrightnessUp               exec bash $HOME/bin/brightness +
-bindsym XF86MonBrightnessDown             exec bash $HOME/bin/brightness -
+bindsym XF86MonBrightnessUp               exec brightnessctl + 
+bindsym XF86MonBrightnessDown             exec brightnessctl -
 
 # take a screenshot
 bindsym XF86Display 			                exec "spectacle" 

@@ -1,0 +1,25 @@
+#!/bin/env bash
+
+# base dir for backlight class
+handler="/sys/class/backlight/intel_backlight"
+
+maxbrightness=$(cat $handler"/max_brightness")
+oldbrightness=$(cat $handler"/brightness")
+newbrightness=$(($oldbrightness $1 100))
+
+if (($newbrightness <= $maxbrightness)) && (($newbrightness >= 0))  
+then
+    echo $newbrightness > $handler"/brightness"
+fi
+
+fill=$(( $newbrightness / 40 )) 
+empty=$(( 30 - $fill ))
+[[ $fill -gt 30 ]] && fill=30 
+FILL=$( awk 'BEGIN {while (c++<'$fill') printf "─"}' )
+EMPTY=$( awk 'BEGIN {while (c++<'$empty') printf "─"}' )
+
+volume_str="$FILL┼$EMPTY"
+
+icon=display-brightness-symbolic.symbolic
+
+dunstify -i $icon -r 10 -u low "$volume_str"

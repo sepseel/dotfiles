@@ -32,7 +32,7 @@ function notify {
     icon=audio-volume-low-symbolic.symbolic
   fi
 
-  dunstify -i $icon -r 1 -u normal "$volume_str"
+  dunstify -i $icon -r 1 -u low "$volume_str"
 }
 
 case $1 in 
