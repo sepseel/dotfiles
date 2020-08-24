@@ -17,7 +17,7 @@ for_window [class="[.]*"] border none
 ###---Basic Defenitions---###
 
 # gaps setup
-gaps inner 10
+gaps inner 8
 gaps outer 0
 
 # hide all borders
@@ -68,11 +68,9 @@ bindsym $mod+Shift+m 			exec load_music_layout.sh
 
 
 # Volume keys
-bindsym XF86AudioRaiseVolume              exec $inc
-bindsym $mod+XF86AudioRaiseVolume         exec $inc
-bindsym XF86AudioLowerVolume              exec $dec
-bindsym $mod+XF86AudioLowerVolume         exec decremovol
-bindsym XF86AudioMute                     exec $mute
+bindsym XF86AudioRaiseVolume              exec audioctl +5
+bindsym XF86AudioLowerVolume              exec audioctl -5
+bindsym XF86AudioMute                     exec audioctl -m
 
 
 # brightness

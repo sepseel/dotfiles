@@ -5,16 +5,6 @@
 # |_.__/ \__,_|___/_| |_|_|  \___|
 #                                 
 
-# xdg folder paths
-export XDG_DOWNLOAD_DIR="$HOME/downloads"
-export XDG_DOCUMENTS_DIR="$HOME/documents"
-export XDG_MUSIC_DIR="$HOME/music"
-export XDG_PICTURES_DIR="$HOME/images"
-export XDG_VIDEOS_DIR="$HOME/videos"
-export XDG_CONFIG_HOME="$HOME/.config"
-export XDG_CACHE_HOME="$HOME/.cache"
-export XDG_DATA_HOME="$HOME/.local/share"
-
 # xdg cleanup file
 . .config/xdg_cleanup
 
@@ -82,14 +72,6 @@ stty -ixon
 # change directory by just typing the path without 'cd'
 shopt -s autocd
 
-# java and derby settings
-export DERBY_INSTALL=/opt/Apache/db-derby-10.14.2.0-bin
-export DERBY_HOME=/opt/Apache/db-derby-10.14.2.0-bin/bin
-export JAVAFX_INSTALL=/opt/javafx-sdk-11.0.2/lib
-export CLASSPATH=$DERBY_INSTALL/lib/derby.jar:$DERBY_INSTALL/lib/derbytools.jar:$DERBY_INSTALL/lib/derbyclient.jar:$DERBY_INSTALL/lib/derbyoptionaltools.jar:$DERBY_INSTALL/lib/derbyrun.jar:$JAVAFX_INSTALL/javafx.base.jar:$JAVAFX_INSTALL/javafx.controls.jar:$JAVAFX_INSTALL/javafx.fxml.jar:$JAVAFX_INSTALL/javafx.graphics.jar:$JAVAFX_INSTALL/javafx.media.jar:$JAVAFX_INSTALL/javafx.swing.jar:$JAVAFX_INSTALL/javafx-swt.jar:$JAVAFX_INSTALL/javafx.web.jar:.
-
-
 # expanding the path
-PROCESSING_HOME="$HOME/Documents/Java/processing/processing-3.3.7"
-export PATH="$PATH:$HOME/.scripts:$HOME/.scripts/dmenu:$PROCESSING_HOME:/usr/share/java:$JAVA_HOME/bin"
+export PATH="$PATH:$HOME/.scripts:$HOME/.scripts/dmenu"
 

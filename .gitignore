@@ -2,6 +2,13 @@ reps
 music
 images
 documents
+downloads
+
+.pki
+.ssh
+.dbus
+.dotfiles
+.gnupg
 .cache
 .vscode-oss
 .thunderbird
@@ -15,11 +22,7 @@ documents
 .config/dconf
 .config/mpd/pid
 .config/mpd/sticker.sql
+.config/mpd/log
 
-.dotfiles
-.gnupg
 .local/share
 !.local/share/dmenu
-.pki
-.ssh
-.dbus

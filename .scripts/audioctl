@@ -1,0 +1,15 @@
+#!/bin/env bash
+
+function mute {
+  pulsemixer --toggle-mute
+}
+
+function change-volume {
+  pulsemixer --change-volume $1 
+  notify-send -u normal "################################"
+}
+
+case $1 in 
+  "-m") mute ;;
+  *) change-volume $1 ;;
+esac  

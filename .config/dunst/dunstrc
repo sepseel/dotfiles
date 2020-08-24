@@ -10,51 +10,31 @@
 
 [global]
     ### Display ###
+    monitor = 0    # Which monitor should the notifications be displayed on.
+    follow = mouse # Display notification on focused monitor.
 
-    # Which monitor should the notifications be displayed on.
-    monitor = 0
-
-    # Display notification on focused monitor.
-    follow = mouse
-
-    # The geometry of the window:
-    #   [{width}]x{height}[+/-{x}+/-{y}]
-    geometry = "350x5-11+66"
+    # The geometry of the window: [{width}]x{height}[+/-{x}+/-{y}]
+    geometry = "450x60+735+75"
 
     # Show how many messages are currently hidden (because of geometry).
     indicate_hidden = yes
 
-    # Shrink window if it's smaller than the width.  Will be ignored if
-    # width is 0.
-    shrink = no
-
-    # The transparency of the window.  Range: [0; 100].
-    transparency = 0
-
-    # The height of the entire notification.
-    notification_height = 0
-
-    # Draw a line of "separator_height" pixel height between two notifications.
-    separator_height = 2
-
-    # Padding between text and separator.
-    padding = 10
-
-    # Horizontal padding.
-    horizontal_padding = 8
+    shrink = no      # Shrink window if it's smaller than the width.  Will be ignored if width is 0.
+    transparency = 0 # The transparency of the window.  Range: [0; 100].
+    notification_height = 0  # The height of the entire notification.
+    separator_height = 3 # Draw a line of "separator_height" pixel height between two notifications.
+    padding = 10 # Padding between text and separator.
+    horizontal_padding = 8 # Horizontal padding.
 
 	# frame settings
     frame_width = 3
-    frame_color = "#272822"
-
-    # Define a color for the separator.
+    frame_color = "#a6e22e"
     separator_color = frame
 
-    # Sort messages by urgency.
-    sort = yes
+    sort = yes # Sort messages by urgency.
 
     # Don't remove messages, if the user is idle (no mouse or keyboard input)
-    idle_threshold = 15
+    idle_threshold = 5
 
     ### Text ###
 
@@ -63,12 +43,7 @@
     # The spacing between lines.
     line_height = 0
 
-    # notification markup
-    # full: Allow a small subset of html markup in notifications:
-    #        <b>bold</b>
-    #        <i>italic</i>
-    #        <s>strikethrough</s>
-    #        <u>underline</u>
+    # notification markup full: Allow a small subset of html markup in notifications:
     markup = full
 
     # The format of the message.  Possible variables are:
@@ -81,10 +56,10 @@
     #   %n  progress value if set without any extra characters
     #   %%  Literal %
     # Markup is allowed
-    format = "<b>%s</b>\n%b"
+    format = "<b>%s</b>\n%b\n"
 
     # Alignment of message text.
-    alignment = left
+    alignment = center
 
     # Show age of message if message is older than show_age_threshold seconds
     show_age_threshold = -1
@@ -102,7 +77,7 @@
     stack_duplicates = true
 
     # Hide the count of merged notifications with the same content
-    hide_duplicate_count = false
+    hide_duplicate_count = true
 
     # Display indicators for URLs (U) and actions (A).
     show_indicators = no
@@ -110,13 +85,13 @@
     ### Icons ###
 
     # Align icons left/right/off
-    icon_position = off
+    icon_position = left
 
     # Scale larger icons down to this size, set to 0 to disable
-    max_icon_size = 32
+    max_icon_size = 96
 
     # Paths to default icons.
-    icon_path = /usr/share/icons/gnome/16x16/status/:/usr/share/icons/gnome/16x16/devices/
+    icon_path = /usr/share/icons/Adwaita/48x48/status/ #:/usr/share/icons/gnome/48x48/devices/
 
     ### History ###
 
@@ -130,10 +105,10 @@
     ### Misc/Advanced ###
 
     # dmenu path.
-    dmenu = /usr/bin/dmenu -p dunst:
+    dmenu = /usr/local/bin/dmenu -p dunst:
 
     # Browser for opening urls in context menu.
-    browser = /usr/bin/firefox -new-tab
+    browser = /usr/bin/firefox --new-tab
 
     # Always run rule-defined scripts, even if the notification is suppressed
     always_run_script = true
@@ -142,7 +117,7 @@
     title = Dunst
 
     # Define the class of the windows spawned by dunst
-    class = Dunst
+    class = Notification
 
     # Print a notification on startup.
     startup_notification = false
@@ -167,28 +142,50 @@
     history = ctrl+h
 
     # Context menu.
-    context = ctrl+shift+period
+    context = ctrl+shift+perNotification
+#
+
 
 [urgency_low]
-
-    background = "#F8F8F2"
-    foreground = "#272822"
-    frame_color = "#A1EFE4"
-    timeout = 5
-    #icon = /path/to/icon
+    background = "#272822"
+    foreground = "#f8f8f2"
+    frame_color = "#000000"
+    timeout = 10
 
 [urgency_normal]
-
-    background = "#F8F8F2"
-    foreground = "#272822"
-    frame_color = "#272822"
-    timeout = 5
-    #icon = /path/to/icon
+    background = "#272822"
+    foreground = "#f8f8f2"
+    frame_color = "#a6e22e"
+    timeout = 10
 
 [urgency_critical]
-
-    background = "#F8F8F2"
-    foreground = "#272822"
-    frame_color = "#A6E22E"
+    background = "#272822"
+    foreground = "#f8f8f2"
+    frame_color = "#f92672"
     timeout = 0
-    #icon = /path/to/icon
+
+#
+#
+#[urgency_low]
+#
+#    background = "#404040"
+#    foreground = "#808080"
+#    frame_color = "#808080"
+#    timeout = 5
+#    #icon = /path/to/icon
+#
+#[urgency_normal]
+#
+#    background = "#404040"
+#    foreground = "#F8F8F2"
+#    frame_color = "#a6e22e"
+#    timeout = 5
+#    #icon = /path/to/icon
+#
+#[urgency_critical]
+#
+#    background = "#F8F8F2"
+#    foreground = "#272822"
+#    frame_color = "#f92672"
+#    timeout = 0
+#    #icon = /path/to/icon

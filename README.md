@@ -45,3 +45,6 @@ update comming soon!
 - JoyPixels (emoji)
 - Noto Color Emoji (emoji)
 - Hack (monospace)
+
+### Displaymanager
+lightdm + lightdm-webkit2-greeter + litarvan theme
