@@ -2,11 +2,37 @@
 
 function mute {
   pulsemixer --toggle-mute
+  notify -m
 }
 
 function change-volume {
   pulsemixer --change-volume $1 
-  notify-send -u normal "################################"
+  notify -v
+}
+
+function notify {
+  muted=$(pulsemixer --get-mute)
+  volume=$(pulsemixer --get-volume | cut -d" " -f 1)
+  fill=$(( $volume / 5 )) 
+  empty=$(( 30 - $fill ))
+  FILL=$( awk 'BEGIN {while (c++<'$fill') printf "─"}' )
+	EMPTY=$( awk 'BEGIN {while (c++<'$empty') printf "─"}' )
+  
+  volume_str="$FILL┼$EMPTY"
+
+  if [[ $muted -eq 1 ]]; then 
+    icon=audio-volume-muted-symbolic.symbolic
+  elif [[ $volume -gt 100 ]]; then
+    icon=audio-volume-overamplified-symbolic.symbolic
+  elif [[ $volume -gt 66 ]]; then
+    icon=audio-volume-high-symbolic.symbolic
+  elif [[ $volume -gt 33 ]]; then
+    icon=audio-volume-medium-symbolic.symbolic
+  elif [[ $volume -gt -1 ]]; then
+    icon=audio-volume-low-symbolic.symbolic
+  fi
+
+  dunstify -i $icon -r 1 -u normal "$volume_str"
 }
 
 case $1 in 
