@@ -1,0 +1,50 @@
+#!/bin/bash
+
+function watchStream {
+  SRC="udpsrc port=$port"
+  FORMATTER="application/x-rtp,encoding-name=JPEG,payload=26"
+  DEPAYLOADER="rtpjpegdepay"
+  DECODER="jpegdec"
+  SINK="autovideosink"
+
+
+  echo "Watching a network stream on $port"
+  gst-launch-1.0 -v $SRC ! $FORMATTER ! $DEPAYLOADER ! $DECODER ! $SINK > /dev/null
+}
+
+function openStream {
+  SRC="v4l2src device=/dev/video0"
+  FORMATTER="video/x-raw,width=640,height=480,framerate=30/1"
+  CONVERTER="videoconvert"
+  ENCODER="jpegenc"
+  PAYLOADER="rtpjpegpay"
+  LOCAL_SINK="ximagesink"
+  NETWORK_SINK="udpsink host=$ip port=$port"
+  #MULTI_SINK="multiudpsink clients=127.0.0.1:5000,127.0.0.1:5004,192.168.2.15:2000"
+
+  echo "Starting a network stream to $ip:$port"
+  gst-launch-1.0 -v $SRC ! $FORMATTER ! $CONVERTER ! $ENCODER ! $PAYLOADER ! $NETWORK_SINK > /dev/null
+}
+
+function localStream {
+  SRC="v4l2src device=/dev/video0"
+  FORMATTER="video/x-raw,width=640,height=480,framerate=30/1"
+  CONVERTER="videoconvert"
+
+  echo "opening webcam"
+  gst-launch-1.0 -v $SRC ! $FORMATTER ! $CONVERTER ! autovideosink > /dev/null
+}
+
+case $1 in 
+  "-w") 
+    [[ $2 ]] && port=$2 || port="1234"
+    watchStream $port
+    ;;
+  "-o") 
+    [[ $2 ]] && ip=$2 || ip="127.0.0.1"
+    [[ $3 ]] && port=$2 || port="1234"
+    openStream $ip $port
+    ;;
+  "-h") echo "Usage: webcam [-w port] [-o ip port]" ;;
+  *) localStream ;;
+esac
