@@ -1,3 +1,4 @@
-echo test > /home/sepseel/test
-XDG_CONFIG_HOME="/home/sepseel/.config"
+setxkbmap be
+setwallpaper
+slock
 exec i3

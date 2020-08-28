@@ -16,3 +16,7 @@ export XDG_DATA_HOME="$HOME/.local/share"
 
 # expand the path
 export PATH="$PATH:$HOME/.scripts:$HOME/.scripts/dmenu"
+
+if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
+  exec startx
+fi
