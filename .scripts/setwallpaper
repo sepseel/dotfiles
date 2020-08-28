@@ -1,0 +1,3 @@
+#!/bin/bash
+ls $HOME/images/wallpapers/ | sort -R | tail -n 1 | sed 's/^\(.\+\)$/\/home\/sepseel\/images\/wallpapers\/\1/' | xargs feh --no-fehbg --bg-fill
+#feh --no-fehbg --bg-fill $HOME/images/wallpapers/spacescape1.png
