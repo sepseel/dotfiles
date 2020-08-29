@@ -1,0 +1,22 @@
+#!/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+menu_options="Lock\nExit i3\nRestart\nShut Down"
+
+# let the user pick an option
+selection=$(echo -e $menu_options | $DMENU $@ -l 15 )
+
+case "$selection" in
+        "Lock") sleep 0.3 && slock ;;
+        "Exit i3") i3-msg exit ;;
+        "Restart") loginctl reboot ;;
+        "Shut Down") loginctl poweroff ;;
+esac
+
+exit 0
+
