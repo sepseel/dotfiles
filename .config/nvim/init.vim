@@ -3,8 +3,7 @@
 "
 set noswapfile " disable swapfiles
 set number     " show line numbers
-set expandtab  " always indent using spaces
-set tabstop=2  " use 2 spaces for indenting
+set tabstop=2  " render a tab as 2 spaces
 set autoindent " automatically follow indentation
 set visualbell " dont startle me with this shit...
 set nowrap		 " dont wrap lines
