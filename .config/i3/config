@@ -92,14 +92,17 @@ bindsym $mod+w                            exec "touchpadtoggle"
 # firefox
 bindsym $mod+Shift+f 					  					exec --no-startup-id "firefox"
 
-# open an emoji menu
-bindsym $mod+a							  					  exec $HOME/bin/dmenu/emoji
+# start dmenu (a program launcher)
+bindsym $mod+d 													  exec dmenu_run
 
 # open a menu
-bindsym $mod+c                            exec "$HOME/.scripts/dmenu/menu"
+bindsym $mod+Shift+d                      exec "$HOME/.scripts/dmenu/menu"
 
 # open a file launcher
 bindsym $mod+o                            exec "$HOME/.scripts/dmenu/open"
+
+# open an emoji menu
+bindsym $mod+a							  					  exec $HOME/bin/dmenu/emoji
 
 # start a terminal
 bindsym $mod+Shift+Return 			 				  exec xterm -fa 'Hack' -fs 14 
@@ -107,9 +110,6 @@ bindsym $mod+Return            			      exec xterm -fa 'Hack' -fs 14
 
 # kill focused window
 bindsym $mod+Shift+a 										  kill
-
-# start dmenu (a program launcher)
-bindsym $mod+d 							 						  exec dmenu_run
 
 # change focus
 bindsym $mod+h													  focus left
