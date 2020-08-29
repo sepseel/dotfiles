@@ -6,13 +6,14 @@ else
   DMENU='dmenu'
 fi
 
-menu_options="lock\nnetwork-connect\nnetwork-add\nbluetooth-connect\nbluetooth-add\ntodo\nscreenshot\nemoji\ncalculate"
+menu_options="open\nlock\nnetwork-connect\nnetwork-add\nbluetooth-connect\nbluetooth-add\ntodo\nscreenshot\nemoji\ncalculate\nwebcam"
 prompt="What do you want to do?"
 
 # let the user pick an option
 selection=$(echo -e $menu_options | $DMENU $@ -l 15 -p "$prompt:")
 
 case "$selection" in
+        open) open ;;
         lock) dm-tool lock ;;
         emoji) emoji & ;;
         todo) todo & ;;
@@ -22,6 +23,7 @@ case "$selection" in
         bluetooth-connect) bluetooth-connect & ;;
         bluetooth-add) bluetooth-add & ;;
         calculate) calculate & ;;
+        webcam) webcam & ;;
 esac
 
 exit 0
