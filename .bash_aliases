@@ -55,3 +55,8 @@ alias cloudWol='wol 00:1e:67:03:ac:4b'
 
 # alias for nvim
 alias vim='nvim'
+
+#
+# XDG CLEANUP
+#
+alias wget='wget --hsts-file="$XDG_CACHE_HOME/wget-hsts"'

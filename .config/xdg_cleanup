@@ -1,2 +1,7 @@
+xrdb -load $XDG_CONFIG_HOME/X11/xresources
 export LESSKEY="$XDG_CONFIG_HOME"/less/lesskey
 export LESSHISTFILE="$XDG_CACHE_HOME"/less/history
+export _JAVA_OPTIONS=-Djava.util.prefs.userRoot="$XDG_CONFIG_HOME"/java 
+export WGETRC="$XDG_CONFIG_HOME/wgetrc"
+export XAUTHORITY="$XDG_RUNTIME_DIR"/Xauthority 
+export GTK2_RC_FILES="$XDG_CONFIG_HOME"/gtk-2.0/gtkrc 
