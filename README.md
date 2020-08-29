@@ -8,29 +8,24 @@ update comming soon!
 - bash
 - vim
 - i3 
-- compton
+- picom
 - dunst
 - polybar
 - dmenu
 
-### Scripts i use:
-- dmenuunicode (luke smith, menu for selecting emoji)
-- lock (?, locks the screen in a fancy way)
-- markdown\_previewer (Tomasz Gasior, title says it all) 
--	bluetooth (connecting or disconnecting bluetooth devices made easy)
-- brightness (simple brightness controll script)
-- checkBat (notify's you when the battery gets low)
-- transmission (simple transmission launcher)
-- touchpadtoggle (turns the touchpad on or off)
+### Scripts:
 
-### Dependencies
+### Dependencies:
 - feh
 - alsa
 - pulseaudio
 - Urxvt
 - maim (screenshots)
 - firefox
+- mpv
+- mpd & mpc
 - dmenu (see github.com/sepseel/dmenu)
+- slock (see github.com/sepseel/slock)
 - redshift
 - dunst
 - picom
@@ -38,7 +33,6 @@ update comming soon!
 - vim (compiled with system clipboard support)
 - i3
 - Network Manager
--	ImageMagic
 
 ### Fonts:
 - Material Icons (icons)
@@ -46,5 +40,6 @@ update comming soon!
 - Noto Color Emoji (emoji)
 - Hack (monospace)
 
-### Displaymanager
-lightdm + lightdm-webkit2-greeter + litarvan theme
+### Cursor theme:
+xcursor-breeze
+

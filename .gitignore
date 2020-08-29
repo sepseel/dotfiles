@@ -1,5 +1,6 @@
 reps
 music
+videos
 images
 documents
 downloads
@@ -9,11 +10,14 @@ downloads
 .dbus
 .dotfiles
 .gnupg
+.icons
 .cache
 .vscode-oss
 .thunderbird
 .mozilla
+.minecraft
 .local/share/Trash
+.Xauthority
 
 .config/discord
 .config/Code\ -\ OSS
@@ -23,6 +27,11 @@ downloads
 .config/mpd/pid
 .config/mpd/sticker.sql
 .config/mpd/log
+.config/transmission*
+.config/java
+.config/htop/htoprc
+.config/polybar/scripts/network/show-ssid
+.config/polybar/scripts/power/show-percent
 
 .local/share
 !.local/share/dmenu
