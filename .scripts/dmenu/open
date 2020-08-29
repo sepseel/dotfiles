@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+CACHE="$XDG_CACHE_HOME/dmenu_open"
+
+[ "$1" = "-u" ] && echo "updating Cache" \
+        && find "$XDG_VIDEOS_DIR" "$XDG_PICTURES_DIR" -not -type d \
+        | grep -v "/\." | sort \
+        > "$CACHE"
+
+prompt="Open a file:"
+
+selection=$(cat "$CACHE" | sed 's;^.\+/\([^/]\+\)$;\1;' | sort | $DMENU -l 15 -p "$prompt")
+[ -n "$selection" ] && filepath=$(cat "$CACHE" | grep "/$selection$") && xdg-open "$filepath" > /dev/null &
+
+exit 0
