@@ -1,0 +1,12 @@
+#!/bin/bash
+
+while IFS= read -r line; do
+        echo "$line" | grep "S0" > /dev/null && seizoen=$(echo $line | grep -o "S0[0-9]") && aflevering="00"
+        url=$(echo $line | cut -d' ' -f1 | grep -v "S0" ) 
+        title=$(echo $line | sed 's/[^ ]\+ \(.\+\)$/\1/')
+        filename="'"$seizoen"E"$aflevering"-$title'"
+        
+        [ "$aflevering" -ne "00" ] && echo "Downloading "$filename && youtube-dl -o "$filename" $url
+        aflevering=$(expr $aflevering + 1)
+        [ "$aflevering" -lt 10 ] && aflevering="0"$aflevering
+done < $1
