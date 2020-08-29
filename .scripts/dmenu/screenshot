@@ -15,11 +15,11 @@ done
 
 
 if [ -n "$file_name" ]; then
-  maim -s -u > "$XDG_PICTURES_DIR/screenshots/$file_name.png" 
+  maim -s -u -d 5 > "$XDG_PICTURES_DIR/screenshots/$file_name.png" 
   notification="Screenshot saved to: $file_name.png"
 else
-  maim -s -u 2>/dev/null | xclip -selection clipboard -t image/png -i
+  maim -s -u -d 5 2>/dev/null | xclip -selection clipboard -t image/png -i
   [ ${PIPESTATUS[0]} -eq 0 ] && notification="Screenshot copied to clipboard"
 fi
 
-notify-send -u normal "Sreenshot" "$notification"
+notify-send -u low "Sreenshot" "$notification"
