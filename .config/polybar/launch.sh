@@ -1,4 +1,4 @@
-#!/usr/bin/env sh
+#!/bin/bash
 
 #terminate running instances
 killall -q polybar
@@ -7,4 +7,4 @@ killall -q polybar
 while pgrep -u $UID -x polybar >/dev/null; do sleep 1; done
 
 #launch bar 
-polybar -r -c ~/.config/polybar/config.ini molokai &
+polybar -c ~/.config/polybar/config.ini molokai &
