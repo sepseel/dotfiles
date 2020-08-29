@@ -1,4 +1,0 @@
-set bell-style none
-set show-mode-in-prompt on
-set vi-ins-mode-string " + "
-set vi-cmd-mode-string " : "

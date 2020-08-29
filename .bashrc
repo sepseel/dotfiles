@@ -5,8 +5,8 @@
 # |_.__/ \__,_|___/_| |_|_|  \___|
 #                                 
 
-# xdg cleanup file
-. .config/xdg_cleanup
+# load the xdg cleanup
+#[[ -f "$XDG_CONFIG_HOME/xdg_cleanup" ]] && . "$XDG_CONFIG_HOME/xdg_cleanup"
 
 # If not running interactively, don't do anything
 case $- in
