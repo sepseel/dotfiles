@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+				DMENU="dmenu -i -w 800 -h 30 -x 560 -y 200 -H $XDG_CACHE_HOME/dmenu_history"
+fi
+
+prompt="Password"
+
+# let the user input his password
+pass=$(echo "" | $DMENU $@ -p "$prompt:" -P)
+echo $pass
+
+exit 0

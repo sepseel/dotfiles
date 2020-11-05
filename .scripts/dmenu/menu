@@ -6,24 +6,29 @@ else
   DMENU='dmenu'
 fi
 
-menu_options="open\nlock\nnetwork-connect\nnetwork-add\nbluetooth-connect\nbluetooth-add\ntodo\nscreenshot\nemoji\ncalculate\nwebcam"
+echo $DISPLAY > /home/sepseel/dis
+
+menu_options="music\npick-color\nbinge\npolybar-theme\nnetwork-connect\nnetwork-add\nbluetooth-connect\nbluetooth-add\ntodo\nscreenshot\nemoji selector\ncalculator\nwatch webcam\nrandom wallpaper"
 prompt="What do you want to do?"
 
 # let the user pick an option
 selection=$(echo -e $menu_options | $DMENU $@ -l 15 -p "$prompt:")
 
 case "$selection" in
-        open) open ;;
-        lock) dm-tool lock ;;
-        emoji) emoji & ;;
-        todo) todo & ;;
-        screenshot) screenshot & ;;
-        network-connect) network-connect & ;;
-        network-add) network-add & ;;
-        bluetooth-connect) bluetooth-connect & ;;
-        bluetooth-add) bluetooth-add & ;;
-        calculate) calculate & ;;
-        webcam) webcam & ;;
+        "music") music & ;;
+        "polybar-theme") polybar-theme & ;;
+				"pick-color") pick-color & ;;
+				"binge") binge & ;;
+        "emoji selector") emoji & ;;
+        "todo") todo & ;;
+        "screenshot") screenshot & ;;
+        "network-connect") network-connect & ;;
+        "network-add") network-add & ;;
+        "bluetooth-connect") bluetooth-connect & ;;
+        "bluetooth-add") bluetooth-add & ;;
+        "calculator") calculate & ;;
+        "watch webcam") webcam & ;;
+				"random wallpaper") setwallpaper & ;;
 esac
 
 exit 0

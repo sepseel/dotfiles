@@ -9,7 +9,7 @@ fi
 CACHE="$XDG_CACHE_HOME/dmenu_open"
 
 [ "$1" = "-u" ] && echo "updating Cache" \
-        && find "$XDG_VIDEOS_DIR" "$XDG_PICTURES_DIR" -not -type d \
+        && find "$XDG_DOWNLOAD_DIR" "$XDG_VIDEOS_DIR" "$XDG_PICTURES_DIR" -not -type d \
         | grep -v "/\." | sort \
         > "$CACHE"
 

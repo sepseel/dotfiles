@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+file=$XDG_DATA_HOME/dmenu/binge
+series=$(cat $file | cut -d" " -f 1)
+
+height=$(ls $XDG_VIDEOS_DIR | wc -l)
+prompt="What do you want to watch?"
+
+if [ "$height" -gt 20 ]; then height=30; fi
+
+episode=1
+selection=$(ls $XDG_VIDEOS_DIR | $DMENU $@ -l "$height" -p "$prompt:")
+[ $(echo "$series" | grep "$selection") ] \
+				&& episode=$(cat $file | grep $selection | cut -d" " -f 2) \
+				|| echo "$selection 1" >> $file
+
+ls $XDG_VIDEOS_DIR/$selection | head -n $episode | sed "s;^\(.\+\)$;$XDG_VIDEOS_DIR/$selection/\1;" > /tmp/videos
+cat /tmp/videos
+
+
+mpv --playlist=/tmp/videos && episode=$(( $episode + 1 ))
+sed -i "s/$selection [0-9]\+/$selection $episode/" $file
+
+exit 0

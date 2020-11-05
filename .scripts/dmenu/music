@@ -1,0 +1,69 @@
+#!/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+
+function addPlaylist {
+  playlist=$(echo  | $DMENU -p "Playlist name" -l 0)
+  test=$( echo "$playlists" | grep "$playlist" )
+  while [ -n "$test" -a -n "$playlist" ]; do
+    playlist=$(echo  | $DMENU -p $playlist" already exists" -l 0)
+    test=$( echo "$playlists" | grep "$playlist" )
+  done
+  [ -n "$playlist" ] && mpc save "$playlist"
+}
+
+function loadPlaylist {
+  playlists=$(mpc lsplaylists)
+  playlist=$(echo -e "$playlists" | $DMENU -l 15 -p "Select playlist") 
+  mpc clear
+  mpc load "$playlist"
+  mpc play
+}
+
+function Que {
+  que=$(mpc playlist)
+  selection=$(echo -e "$que\nclear" | $DMENU -l 15 -p "Remove from que")
+  while [ -n "$selection" ]; do 
+    case "$selection" in
+      "clear") 
+        mpc clear 
+        selection=$()
+        ;;
+      *)  
+        line=$(echo -e "$que" | grep -n "$selection" | cut -d ":" -f 1) 
+        mpc del "$line"
+        que=$(mpc playlist)
+        selection=$(echo -e "$que" | $DMENU -l 15 -p "Remove from que")
+        ;;
+    esac
+  done
+}
+
+function addToQue {
+  while IFS= read -r item; do
+    mpc add "$item"
+  done <<< "$1"
+}
+
+# let the user pick an option
+songs=$(mpc ls)
+menu_options="que\nload playlist\nadd playlist\n$songs"
+
+selection=$(echo -e "$menu_options" | $DMENU $@ -l 15 )
+while [ -n "$selection" ]; do 
+  case "$selection" in
+    "add playlist") addPlaylist $selection ;;
+    "load playlist") loadPlaylist ;;
+    "que") Que ;;
+    *) addToQue "$selection" ;;
+  esac
+  selection=$(echo -e "$menu_options" | $DMENU $@ -l 15 )
+done  
+
+
+exit 0

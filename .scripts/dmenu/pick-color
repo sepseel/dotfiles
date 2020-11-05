@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+color=$( colorpicker --short --one-shot | tr -d "\n" )
+echo $color | xclip
+notify-send -u low "Picked color" "Copied $color to the clipboard!"
+
