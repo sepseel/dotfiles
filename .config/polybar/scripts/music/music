@@ -1,0 +1,53 @@
+#!/bin/bash
+
+toggleFile="$HOME/.config/polybar/scripts/music/show-music"
+
+info=$(mpc | head -n 1)
+state=$(mpc | head -n 2 | tail -n 1 | cut -d" " -f 1 | tr -d [])
+
+function setToggleIcon {
+ 	if [ "$state" == "playing" ]; then
+    polybar-msg hook music_toggle 1 > /dev/null
+	else
+    polybar-msg hook music_toggle 2 > /dev/null
+	fi
+}
+
+function setContent {
+	showInfo=$(cat $toggleFile)
+	if [ "$showInfo" == "y" ]; then
+	  echo "$info"
+	else
+		echo "" 
+	fi
+}
+
+# toggles wether to print the percentage
+function toggle {
+	showMusic=$(cat $toggleFile)
+	if [ "$showMusic" == "n" ]; then
+		echo "y" > "$toggleFile"
+	else
+		echo "n" > $toggleFile
+	fi
+}
+
+# parse the flags
+case $1 in 
+	"-t") 
+		toggle
+		;;
+  "-prev")
+    mpc prev
+    ;;
+  "-playpause")
+    mpc toggle
+    setToggleIcon
+    ;;
+  "-next")
+    mpc next
+    ;;
+	*)
+    setContent
+		;;
+esac
