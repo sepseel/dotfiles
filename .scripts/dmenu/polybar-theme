@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [ -f $XDG_CONFIG_HOME/dmenu/.dmenurc ]; then
+  . $XDG_CONFIG_HOME/dmenu/.dmenurc
+else
+  DMENU='dmenu'
+fi
+
+echo $DISPLAY > /home/sepseel/dis
+
+POLYBAR_DIR="$HOME/.config/polybar"
+menu_options=$( ls $POLYBAR_DIR/styles-* | sed 's/^.\+styles-\([a-z]\+\).ini/\1/' )
+prompt="Pick a theme"
+
+# let the user pick an option
+selection=$(echo -e "$menu_options" | $DMENU $@ -l 15 -p "$prompt:")
+[ -z "$selection" ] \
+  || rm $POLYBAR_DIR/styles.ini \
+  && cp $POLYBAR_DIR/styles-$selection.ini $POLYBAR_DIR/styles.ini \
+  && polybar-msg cmd restart
+
