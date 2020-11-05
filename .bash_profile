@@ -17,6 +17,9 @@ export XDG_DATA_HOME="$HOME/.local/share"
 # expand the path
 export PATH="$PATH:$HOME/.scripts:$HOME/.scripts/dmenu"
 
+# set enviroment vars to fix xdg support
+[[ -f "$XDG_CONFIG_HOME/xdg_cleanup" ]] && . "$XDG_CONFIG_HOME/xdg_cleanup"
+
 if [[ ! $DISPLAY && $XDG_VTNR -eq 1 ]]; then
   exec startx
 fi

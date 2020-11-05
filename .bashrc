@@ -6,7 +6,7 @@
 #                                 
 
 # load the xdg cleanup
-#[[ -f "$XDG_CONFIG_HOME/xdg_cleanup" ]] && . "$XDG_CONFIG_HOME/xdg_cleanup"
+[[ -f "$XDG_CONFIG_HOME/xdg_cleanup" ]] && . "$XDG_CONFIG_HOME/xdg_cleanup"
 
 # If not running interactively, don't do anything
 case $- in
@@ -54,6 +54,9 @@ fi
 if [ -f ~/.bash_aliases ]; then
     . ~/.bash_aliases
 fi
+
+# Make aliases work for sudo
+alias sudo='sudo '
 
 # enable programmable completion features (you don't need to enable
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
